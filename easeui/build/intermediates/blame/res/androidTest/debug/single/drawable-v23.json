@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v23\\abc_control_background_material.xml",
+        "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\drawable-v23\\abc_control_background_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v23\\abc_control_background_material.xml",
+        "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable-v23\\abc_control_background_material.xml"
+    }
+]
