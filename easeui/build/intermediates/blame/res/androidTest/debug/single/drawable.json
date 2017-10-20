@@ -272,12 +272,12 @@
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\ease_btn_cancel_normal_shape.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\ease_chat_image_selector.xml",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\ease_chat_image_selector.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\ease_timestampe_bg.xml",
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\ease_timestampe_bg.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\ease_chat_image_selector.xml",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\ease_chat_image_selector.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\ease_chat_press_speak_btn.xml",

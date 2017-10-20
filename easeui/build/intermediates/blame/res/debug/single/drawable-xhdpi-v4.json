@@ -468,12 +468,12 @@
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\src\\main\\res\\drawable-xhdpi\\em_chat_voice_call_normal.png"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_open_icon.png",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_open_icon.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\em_actionbar_camera_icon.png",
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\em_actionbar_camera_icon.png"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_open_icon.png",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_open_icon.png"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_chat_video_call_receive.png",
@@ -560,12 +560,12 @@
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_delete_expression.png",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_delete_expression.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon_002.gif",
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\icon_002.gif"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_delete_expression.png",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_delete_expression.png"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_focused_holo.9.png",
@@ -724,12 +724,12 @@
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\src\\main\\res\\drawable-xhdpi\\icon_002_cover.png"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_dot_emojicon_selected.png",
-        "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_dot_emojicon_selected.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\em_chat_video_call_normal.png",
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\src\\main\\res\\drawable-xhdpi\\em_chat_video_call_normal.png"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_dot_emojicon_selected.png",
+        "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\src\\main\\res\\drawable-xhdpi\\ease_dot_emojicon_selected.png"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ease_groups_icon.png",

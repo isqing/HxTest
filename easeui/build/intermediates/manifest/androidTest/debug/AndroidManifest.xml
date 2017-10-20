@@ -13,6 +13,10 @@
         android:label="Tests for com.hyphenate.easeui.test"
         android:targetPackage="com.hyphenate.easeui.test" />
 
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="26.0.0-alpha1" />
+
     <application>
         <uses-library android:name="android.test.runner" />
     </application>

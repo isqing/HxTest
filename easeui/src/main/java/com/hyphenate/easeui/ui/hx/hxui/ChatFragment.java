@@ -26,6 +26,7 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
+import com.hyphenate.easeui.ui.hx.hxutil.HxSPUtils;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.exceptions.HyphenateException;
@@ -236,8 +237,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             //set message extension
             message.setAttribute("em_robot_message", isRobot);
         }
-//        message.setAttribute("userPic", userPic);
-        message.setAttribute("userName", "张三");
+        //设置要发送扩展消息用户昵称
+        message.setAttribute(Constant.EASENICKNAME, (String) HxSPUtils.get(getContext(),Constant.EASENICKNAME,""));
+        //设置要发送扩展消息用户头像
+        message.setAttribute(Constant.EASEPHOTO, (String) HxSPUtils.get(getContext(),Constant.EASEPHOTO,""));
     }
     
     @Override

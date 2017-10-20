@@ -68,12 +68,12 @@
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_sent_picture.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_expression_gridview.xml",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_expression_gridview.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_layout.xml",
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_expression_gridview.xml",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_expression_gridview.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_fragment_chat.xml",
@@ -88,12 +88,12 @@
         "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_switch_button.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_alert_dialog.xml",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_alert_dialog.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_alert_dialog.xml",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_alert_dialog.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_chat_message_list.xml",
@@ -152,12 +152,12 @@
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\em_context_menu_for_video.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_voice_recorder.xml",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_voice_recorder.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_dialog_title_material.xml",
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_voice_recorder.xml",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_widget_voice_recorder.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_received_video.xml",
@@ -568,12 +568,12 @@
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\layout\\abc_screen_content_include.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_emojicon.xml",
-        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_emojicon.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_mode_close_item_material.xml",
         "source": "C:\\Users\\liyaqing\\.android\\build-cache\\0b1d69352403a60b6adb9cee403ca19c6ec9c989\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_emojicon.xml",
+        "source": "F:\\AndroidStudioProjects\\HealthCity\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_emojicon.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\em_choose_griditem.xml",
@@ -832,12 +832,12 @@
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_received_bigexpression.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_received_video_call.xml",
-        "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_received_video_call.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media.xml",
         "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_row_received_video_call.xml",
+        "source": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\bundles\\debug\\res\\layout\\ease_row_received_video_call.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\HxTest\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\ease_widget_contact_list.xml",

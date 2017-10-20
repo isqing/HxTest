@@ -581,8 +581,16 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     // implement methods in EMMessageListener
     @Override
     public void onMessageReceived(List<EMMessage> messages) {
+
         for (EMMessage message : messages) {
-            String username = null;
+//            String username = null;
+            String username = message.getStringAttribute("userName", "");
+            String userPic = message.getStringAttribute("userPic", "");
+            String hxIdFrom = message.getFrom();
+            EaseUser easeUser = new EaseUser(hxIdFrom);
+            easeUser.setAvatar(userPic);
+            easeUser.setNick(username);
+
             // group message
             if (message.getChatType() == ChatType.GroupChat || message.getChatType() == ChatType.ChatRoom) {
                 username = message.getTo();

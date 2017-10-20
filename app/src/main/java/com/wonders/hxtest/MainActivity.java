@@ -12,7 +12,10 @@ import android.widget.Toast;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.ui.hx.Constant;
+import com.hyphenate.easeui.ui.hx.DemoHelper;
 import com.hyphenate.easeui.ui.hx.hxui.ChatActivity;
+import com.hyphenate.easeui.ui.hx.hxutil.HxSPUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess() {
                             Log.i(TAG, "登录聊天服务器成功！");
+                            HxSPUtils.put(getApplicationContext(), Constant.EASENICKNAME, "a");
+                            HxSPUtils.put(getApplicationContext(), Constant.EASEPHOTO, "http://image.cmsfg.com/Images/20170427/2017042711134415.jpg");
+                            // 将自己服务器返回的环信账号、昵称和头像URL设置到帮助类中。
+//                            DemoHelper.getInstance().getUserProfileManager().updateCurrentUserNickName("q12345");
+//                            DemoHelper.getInstance().getUserProfileManager().setCurrentUserAvatar("");
+//                            DemoHelper.getInstance().setCurrentUserName("q12345"); // 环信Id
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     Intent chat = new Intent(MainActivity.this, ChatActivity.class);
