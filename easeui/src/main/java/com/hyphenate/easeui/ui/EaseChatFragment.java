@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
@@ -11,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -41,6 +44,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.ui.hx.hxui.ImageGridActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
@@ -61,6 +65,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
 /**
  * you can new an EaseChatFragment to use or you can inherit it to expand.
  * You need call setArguments to pass chatType and userId 
@@ -69,7 +77,7 @@ import java.util.concurrent.Executors;
  * you can see ChatActivity in demo for your reference
  *
  */
-public class EaseChatFragment extends EaseBaseFragment implements EMMessageListener {
+public class EaseChatFragment extends EaseBaseFragment implements EMMessageListener,EasyPermissions.PermissionCallbacks {
     protected static final String TAG = "EaseChatFragment";
     protected static final int REQUEST_CODE_MAP = 1;
     protected static final int REQUEST_CODE_CAMERA = 2;
@@ -114,7 +122,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected MyItemClickListener extendMenuItemClickListener;
     protected boolean isRoaming = false;
     private ExecutorService fetchQueue;
-
+    private static final int RC_LOCATION_PERM = 0x222;
+    public static final int RC_CAMERA_PERM = 0x224;//相机
+    public static final int RC_ALBUM_PERM = 0x225;//相册
+    public static final int RC_VOCIE_PERM = 0x226;//语音
+    boolean pressToSpeak=false;
+    View speakView;
+    MotionEvent motionEvent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.ease_fragment_chat, container, false);
@@ -140,6 +154,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     /**
      * init view
      */
+    @Override
     protected void initView() {
         // hold to record voice
         //noinspection ConstantConditions
@@ -147,8 +162,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
         // message list layout
         messageList = (EaseChatMessageList) getView().findViewById(R.id.message_list);
-        if(chatType != EaseConstant.CHATTYPE_SINGLE)
+        if(chatType != EaseConstant.CHATTYPE_SINGLE) {
             messageList.setShowUserNick(true);
+        }
 //        messageList.setAvatarShape(1);
         listView = messageList.getListView();
 
@@ -166,13 +182,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
-                return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderCallback() {
-                    
-                    @Override
-                    public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
-                        sendVoiceMessage(voiceFilePath, voiceTimeLength);
-                    }
-                });
+                Log.i("dd","dddddddddddd");
+                speakView=v;
+                motionEvent=event;
+                voiceTask();
+
+                return pressToSpeak;
             }
 
             @Override
@@ -193,7 +208,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             fetchQueue = Executors.newSingleThreadExecutor();
         }
     }
-
+    @Override
     protected void setUpView() {
         titleBar.setTitle(toChatUsername);
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
@@ -210,8 +225,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 //group chat
                 EMGroup group = EMClient.getInstance().groupManager().getGroup(toChatUsername);
-                if (group != null)
+                if (group != null) {
                     titleBar.setTitle(group.getGroupName());
+                }
                 // listen the event that user moved out group or group is dismissed
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
@@ -459,8 +475,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) { 
             if (requestCode == REQUEST_CODE_CAMERA) { // capture new image
-                if (cameraFile != null && cameraFile.exists())
+                if (cameraFile != null && cameraFile.exists()) {
                     sendImageMessage(cameraFile.getAbsolutePath());
+                }
             } else if (requestCode == REQUEST_CODE_LOCAL) { // send local image
                 if (data != null) {
                     Uri selectedImage = data.getData();
@@ -486,8 +503,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     @Override
     public void onResume() {
         super.onResume();
-        if(isMessageListInited)
+        if(isMessageListInited){
             messageList.refresh();
+        }
         EaseUI.getInstance().pushActivity(getActivity());
         // register the event listener when enter the foreground
         EMClient.getInstance().chatManager().addMessageListener(this);
@@ -547,8 +565,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(getActivity().isFinishing() || !toChatUsername.equals(value.getId()))
+                        if(getActivity().isFinishing() || !toChatUsername.equals(value.getId())) {
                             return;
+                        }
                         pd.dismiss();
                         EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(toChatUsername);
                         if (room != null) {
@@ -658,13 +677,16 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
             switch (itemId) {
             case ITEM_TAKE_PICTURE:
-                selectPicFromCamera();
+//                selectPicFromCamera();
+                cameraTask();
                 break;
             case ITEM_PICTURE:
-                selectPicFromLocal();
+//                selectPicFromLocal();
+                picFromLocalTask();
                 break;
             case ITEM_LOCATION:
-                startActivityForResult(new Intent(getActivity(), EaseAmapActivity.class), REQUEST_CODE_MAP);
+                location();
+//                startActivityForResult(new Intent(getActivity(), EaseAmapActivity.class), REQUEST_CODE_MAP);
                 break;
 
             default:
@@ -673,7 +695,133 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         }
 
     }
-    
+    @AfterPermissionGranted(RC_VOCIE_PERM)
+    public void voiceTask( ) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] perms = { Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (EasyPermissions.hasPermissions(EaseUI.getInstance().getContext(), perms)) {
+                // Have permissions, do the thing!
+                pressToSpeak=voiceRecorderView.onPressToSpeakBtnTouch(speakView, motionEvent, new EaseVoiceRecorderCallback() {
+
+                    @Override
+                    public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+//                        voicPath=voiceFilePath;
+//                        voiceLength=voiceTimeLength;
+                        Log.i("vocie","语音");
+                        sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                    }
+                });
+            } else {
+                // Ask for both permissions
+                EasyPermissions.requestPermissions(this, "需要语音读取内存权限",
+                        RC_VOCIE_PERM, perms);
+            }
+        }else {
+            pressToSpeak=voiceRecorderView.onPressToSpeakBtnTouch(speakView, motionEvent, new EaseVoiceRecorderCallback() {
+
+                @Override
+                public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+//                        voicPath=voiceFilePath;
+//                        voiceLength=voiceTimeLength;
+                    Log.i("vocie","语音");
+                    sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                }
+            });
+        }
+    }
+    @AfterPermissionGranted(RC_CAMERA_PERM)
+    public void cameraTask() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (EasyPermissions.hasPermissions(EaseUI.getInstance().getContext(), perms)) {
+                // Have permissions, do the thing!
+                selectPicFromCamera();
+            } else {
+                // Ask for both permissions
+                EasyPermissions.requestPermissions(this, "需要打开摄像头权限和读取内存权限",
+                        RC_CAMERA_PERM, perms);
+            }
+        }else {
+            selectPicFromCamera();
+        }
+
+    }
+
+    @AfterPermissionGranted(RC_ALBUM_PERM)
+    public void picFromLocalTask() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] perms = { Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (EasyPermissions.hasPermissions(EaseUI.getInstance().getContext(), perms)) {
+                // Have permissions, do the thing!
+                selectPicFromLocal();
+            } else {
+                // Ask for both permissions
+                EasyPermissions.requestPermissions(this, "需要读取内存权限",
+                        RC_ALBUM_PERM, perms);
+            }
+        }else {
+            selectPicFromLocal();
+        }
+    }
+    @AfterPermissionGranted(RC_LOCATION_PERM)
+    public void location() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+            if (EasyPermissions.hasPermissions(EaseUI.getInstance().getContext(),perms)) {
+                // Have permissions, do the thing!
+                startActivityForResult(new Intent(getActivity(), EaseAmapActivity.class), REQUEST_CODE_MAP);
+            } else {
+                // Ask for both permissions
+                EasyPermissions.requestPermissions(this, "需要打开定位权限",
+                        RC_LOCATION_PERM, perms);
+            }
+        }else {
+            startActivityForResult(new Intent(getActivity(), EaseAmapActivity.class), REQUEST_CODE_MAP);
+        }
+    }
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+        switch (requestCode) {
+            case RC_LOCATION_PERM:
+                startActivityForResult(new Intent(getActivity(), EaseAmapActivity.class), REQUEST_CODE_MAP);
+                break;
+            case RC_CAMERA_PERM : {//调用系统相机申请拍照权限回调
+                selectPicFromCamera();
+                break;
+            }
+            case RC_VOCIE_PERM:
+                pressToSpeak=voiceRecorderView.onPressToSpeakBtnTouch(speakView, motionEvent, new EaseVoiceRecorderCallback() {
+
+                    @Override
+                    public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+//                        voicPath=voiceFilePath;
+//                        voiceLength=voiceTimeLength;
+                        Log.i("vocie","语音");
+                        sendVoiceMessage(voiceFilePath, voiceTimeLength);
+                    }
+                });
+                break;
+
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
     /**
      * input @
      * @param username
@@ -688,10 +836,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if (user != null){
             username = user.getNick();
         }
-        if(autoAddAtSymbol)
+        if(autoAddAtSymbol) {
             inputMenu.insertText("@" + username + " ");
-        else
+        }
+        else {
             inputMenu.insertText(username + " ");
+        }
     }
     
     
@@ -954,9 +1104,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
      */
     protected void hideKeyboard() {
         if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-            if (getActivity().getCurrentFocus() != null)
+            if (getActivity().getCurrentFocus() != null) {
                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
     }
     
@@ -1009,7 +1160,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         @Override
         public void onUserRemoved(final String groupId, String groupName) {
             getActivity().runOnUiThread(new Runnable() {
-
+                @Override
                 public void run() {
                     if (toChatUsername.equals(groupId)) {
                         Toast.makeText(getActivity(), R.string.you_are_group, Toast.LENGTH_LONG).show();
@@ -1026,6 +1177,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         public void onGroupDestroyed(final String groupId, String groupName) {
         	// prompt group is dismissed and finish this activity
             getActivity().runOnUiThread(new Runnable() {
+                @Override
                 public void run() {
                     if (toChatUsername.equals(groupId)) {
                         Toast.makeText(getActivity(), R.string.the_current_group_destroyed, Toast.LENGTH_LONG).show();
@@ -1047,6 +1199,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         @Override
         public void onChatRoomDestroyed(final String roomId, final String roomName) {
             getActivity().runOnUiThread(new Runnable() {
+                @Override
                 public void run() {
                     if (roomId.equals(toChatUsername)) {
                         Toast.makeText(getActivity(), R.string.the_current_chat_room_destroyed, Toast.LENGTH_LONG).show();
@@ -1062,6 +1215,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         @Override
         public void onRemovedFromChatRoom(final String roomId, final String roomName, final String participant) {
             getActivity().runOnUiThread(new Runnable() {
+                @Override
                 public void run() {
                     if (roomId.equals(toChatUsername)) {
                         Toast.makeText(getActivity(), R.string.quiting_the_chat_room, Toast.LENGTH_LONG).show();
@@ -1080,6 +1234,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         public void onMemberJoined(final String roomId, final String participant) {
             if (roomId.equals(toChatUsername)) {
                 getActivity().runOnUiThread(new Runnable() {
+                    @Override
                     public void run() {
                         Toast.makeText(getActivity(), "member join:" + participant, Toast.LENGTH_LONG).show();
                     }
@@ -1091,6 +1246,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         public void onMemberExited(final String roomId, final String roomName, final String participant) {
             if (roomId.equals(toChatUsername)) {
                 getActivity().runOnUiThread(new Runnable() {
+                    @Override
                     public void run() {
                         Toast.makeText(getActivity(), "member exit:" + participant, Toast.LENGTH_LONG).show();
                     }

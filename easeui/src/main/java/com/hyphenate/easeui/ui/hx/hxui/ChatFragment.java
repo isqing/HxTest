@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.ui.hx.hxui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
@@ -37,6 +40,9 @@ import com.hyphenate.easeui.ui.hx.DemoHelper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHelper {
 
@@ -317,6 +323,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public boolean onExtendMenuItemClick(int itemId, View view) {
         switch (itemId) {
         case ITEM_VIDEO:
+            Log.i("voice","ITEM_VIDEO");
             Intent intent = new Intent(getActivity(), ImageGridActivity.class);
             startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
             break;
@@ -359,7 +366,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         //keep exist extend menu
         return false;
     }
-    
+
+
+
+
     /**
      * select file
      */
